@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    margin-right: 10px;
+    width: 280px; /* largura fixa para rótulos */
+}
+
+.form-group input, .form-group select {
+    width: 300px; /* largura fixa para inputs/selects */
+    height: 35px;
+
+    border: 2px solid black;
+    border-radius: 5px;
+
+    font-size: large;
+    transition-duration: 0.5s;
+}
+
+.form-group input {
+    width: 290px;
+    height: 31px;
+}
+
+
+.form-group input:hover, select:hover {
+    background-color: #d0dfff;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select {
+    padding: 0px 0px 0px 7px;
+}

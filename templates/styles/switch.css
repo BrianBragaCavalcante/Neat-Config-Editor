@@ -1,0 +1,43 @@
+@charset "UTF-8";
+@charset "UTF-8";
+
+.switch input[type=checkbox]{
+    height: 0px;
+    width: 0px;
+    visibility: hidden;
+}
+
+.switch label {
+    cursor: pointer;
+    padding: 4px;
+    width: 45px;
+    height: 20px;
+    background-color: rgb(128, 120, 128);
+    display: block;
+    border-radius: 50em;
+    position: relative;
+    transition: 0.2s;
+    box-sizing: content-box;
+}
+
+.switch label::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.switch input:active + label {
+    background: rgba(128, 120, 128, 0.8);
+}
+
+.switch input:checked + label {
+    background: rgb(24, 144, 224);
+}
+
+.switch input:checked + label::after {
+    transform: translateX(calc(100% + 5px));
+}

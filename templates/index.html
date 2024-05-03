@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neat Config Editor</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/form.css">
+    <link rel="stylesheet" href="styles/switch.css">
+
+    <script>
+        function minInput(input, min) {
+            if (input.value < min) {
+                input.value = min;
+            }
+        }
+        
+        function maxInput(input, max) {
+            if (input.value > max) {
+                input.value = max;
+            }
+        }
+
+        function minMaxInput(input, min, max) {
+            if (input.value > max) {
+                input.value = max;
+            }
+            if (input.value < min) {
+                input.value = min;
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <header>
+        <h1>
+            Neat Config Editor
+        </h1>
+    </header>
+    
+    <main>
+        <input type="file" name="" id="">
+        <button type="button">Criar Novo</button>
+
+        <form action="">
+            <h2>
+                NEAT
+            </h2>
+
+            <div class="form-group">
+                <label for="fitness_criterion">fitness criterion</label>
+                <select name="fitness_criterion" id="fitness_criterion">
+                    <option value="max">Max</option>
+                    <option value="min">Min</option>
+                    <option value="mean">Mean</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fitness_threshold">fitness threshold</label>
+                <input type="number" min="1" value="1" oninput="minInput(this, 1)">
+            </div>
+
+            <div class="form-group">
+                <label for="reset_on_extinction">reset on extinction</label>
+                <div class="switch">
+                    <input type="checkbox" id="reset_on_extinction_switch" checked>
+                    <label for="reset_on_extinction_switch"></label>
+                </div>
+            </div>
+            
+            <h2>
+                DefaultGenome
+            </h2>
+
+            <section id="activation">
+                <h3>
+                    Activation
+                </h3>
+
+                <div class="form-group">
+                    <label for="activation_default">activation default</label>
+                    <select name="activation_default" id="activation_default">
+                        <option value="random">Random</option>
+                        <option value="abs">Abs</option>
+                        <option value="clamped">Clamped</option>
+                        <option value="cube">Cube</option>
+                        <option value="exp">Exp</option>
+                        <option value="gauss">Gauss</option>
+                        <option value="hat">Hat</option>
+                        <option value="identity">Identity</option>
+                        <option value="cube">Cube</option>
+                        <option value="inv">Inv</option>
+                        <option value="log">Log</option>
+                        <option value="relu">Relu</option>
+                        <option value="elu">Elu</option>
+                        <option value="lelu">Lelu</option>
+                        <option value="selu">Selu</option>
+                        <option value="sigmoid">Sigmoid</option>
+                        <option value="sin">Sin</option>
+                        <option value="softplus">Softplus</option>
+                        <option value="square">Square</option>
+                        <option value="tanh">Tanh</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="activation_mutate_rate">activation mutate rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+                <div class="form-group">
+                    <label for="activation_options">activation options</label>
+                    <select name="activation_options" id="activation_options">
+                        <option value="sigmoid">Sigmoid</option>
+                        <option value="abs">Abs</option>
+                        <option value="clamped">Clamped</option>
+                        <option value="cube">Cube</option>
+                        <option value="exp">Exp</option>
+                        <option value="gauss">Gauss</option>
+                        <option value="hat">Hat</option>
+                        <option value="identity">Identity</option>
+                        <option value="cube">Cube</option>
+                        <option value="inv">Inv</option>
+                        <option value="log">Log</option>
+                        <option value="relu">Relu</option>
+                        <option value="elu">Elu</option>
+                        <option value="lelu">Lelu</option>
+                        <option value="selu">Selu</option>
+                        <option value="sin">Sin</option>
+                        <option value="softplus">Softplus</option>
+                        <option value="square">Square</option>
+                        <option value="tanh">Tanh</option>
+                    </select>
+                </div>
+
+            </section>
+
+            <section id="aggregation">
+                <h3>
+                    Aggregation
+                </h3>
+
+                <div class="form-group">
+                    <label for="aggregation_default" >aggregation default</label>
+                    <select name="aggregation_default" id="aggregation_default">
+                        <option value="sum">Random</option>
+                        <option value="sum">Sum</option>
+                        <option value="product">Product</option>
+                        <option value="max">Max</option>
+                        <option value="min">Min</option>
+                        <option value="mean">Mean</option>
+                        <option value="median">Median</option>
+                        <option value="maxabs">MaxAbs</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="aggregation_mutate_rate">aggregation mutate rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="aggregation_options">aggregation options</label>
+                    <select name="aggregation_options" id="aggregation_options">
+                        <option value="sum">Sum</option>
+                        <option value="product">Product</option>
+                        <option value="max">Max</option>
+                        <option value="min">Min</option>
+                        <option value="mean">Mean</option>
+                        <option value="median">Median</option>
+                        <option value="maxabs">MaxAbs</option>
+                    </select>
+                </div>
+
+            </section>
+
+            <section id="bias">
+                <h3>
+                    Bias
+                </h3>
+
+                <div class="form-group">
+                    <label for="bias_init_mean">bias init mean</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="bias_init_stdev">bias init stdev</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="bias_max_value">bias max value</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="bias_min_value">bias min value</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="bias_mutate_power">bias mutate power (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="bias_mutate_rate">bias mutate rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="bias_replace_rate">bias replace rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+                
+            </section>
+            
+            <section id="genoma_compatibility">
+                <h3>
+                    Genoma Compatibility
+                </h3>
+
+                <div class="form-group">
+                    <label for="compatibility_disjoint_coefficient">compatibility disjoint coefficient</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="compatibility_weight_coefficient">compatibility  weight coefficient</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+            </section>
+
+            <section id="connection_rates">
+                <h3>
+                    Connection Rates
+                </h3>
+
+                <div class="form-group">
+                    <label for="conn_add_prob">conn add prob (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="conn_delete_prob">conn delete prob (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+            </section>
+
+            <section id="connection_enable_options">
+                <h3>
+                    Connection Enable Options
+                </h3>
+
+                <div class="form-group">
+                    <label for="enabled_default">enabled default</label>
+                    <div class="switch">
+                        <input type="checkbox" id="enabled_default_switch" checked>
+                        <label for="enabled_default_switch"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="enabled_mutate_rate">enabled mutate rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="feed_forward">feed forward</label>
+                    <div class="switch">
+                        <input type="checkbox" id="feed_forward_switch" checked>
+                        <label for="feed_forward_switch"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="initial_connection">initial connection</label>
+                    <select name="initial_connection" id="initial_connection">
+                        <option value="unconnected">Unconnected</option>
+                        <option value="fs_neat_nohidden">Fs neat nohidden</option>
+                        <option value="full">Full</option>
+                        <option value="full_nodirect">Full nodirect</option>
+                        <option value="full_direct">Full direct</option>
+                        <!--Adicionar o resto depois-->
+                    </select>
+                </div>
+
+            </section>
+
+            <section id="node_rates">
+                <h3>
+                    Node Rates
+                </h3>
+
+                <div class="form-group">
+                    <label for="node_add_prob">node add prob (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="node_delete_prob">node delete prob (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+            </section>
+
+            <section id="network_parameters">
+                <h3>
+                    Network Parameters
+                </h3>
+
+                <div class="form-group">
+                    <label for="num_hidden">num hidden</label>
+                    <input type="number" min="0" value="0" oninput="minInput(this, 0)">
+                </div>
+
+                <div class="form-group">
+                    <label for="num_inputs">num inputs</label>
+                    <input type="number" min="1" value="1" oninput="minInput(this, 1)">
+                </div>
+
+                <div class="form-group">
+                    <label for="num_outputs">num outputs</label>
+                    <input type="number" min="1" value="1" oninput="minInput(this, 1)">
+                </div>
+
+            </section>
+
+            <section id="response">
+                <h3>
+                    Response
+                </h3>
+
+                <div class="form-group">
+                    <label for="response_init_mean">response init mean</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="response_init_stdev">response init stdev</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="response_max_value">response max value</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="response_min_value">response min value</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="response_mutate_power">response mutate power (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="response_mutate_rate">response mutate rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="response_replace_rate">response replace rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+                
+            </section>
+
+            <section id="weight">
+                <h3>
+                    Weight
+                </h3>
+
+                <div class="form-group">
+                    <label for="weight_init_mean">weight init mean</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="weight_init_stdev">weight init stdev</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="weight_max_value">weight max value</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="weight_min_value">weight min value</label>
+                    <input type="number" value="0.0" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="weight_mutate_power">weight mutate power (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="weight_mutate_rate">weight mutate rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+
+                <div class="form-group">
+                    <label for="weight_replace_rate">weight replace rate (%)</label>
+                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                </div>
+                
+            </section>
+
+            <h2>
+                Default Species Set
+            </h2>
+
+            <div class="form-group">
+                <label for="compatibility_threshold">compatibility threshold</label>
+                <input type="number" value="0.0" step="0.01">
+            </div>
+
+            <h2>
+                Default Stagnation
+            </h2>
+
+            <div class="form-group">
+                <label for="species_fitness_func">species fitness func</label>
+                <select name="species_fitness_func" id="species_fitness_func">
+                    <option value="mean">Mean</option>
+                    <option value="max">Max</option>
+                    <option value="min">Min</option>
+                    <option value="median">Median</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="max_stagnation">max stagnation</label>
+                <input type="number" value="15" min="1" oninput="minInput(this, 1)">
+            </div>
+
+            <div class="form-group">
+                <label for="species_elitism">species elitism</label>
+                <input type="number" value="0" min="0" oninput="minInput(this, 0)">
+            </div>
+            
+            <h2>
+                Default Reproduction
+            </h2>
+
+            <div class="form-group">
+                <label for="nelitism">elitism</label>
+                <input type="number" min="0" value="0" oninput="minInput(this, 0)">
+            </div>
+            
+            <div class="form-group">
+                <label for="survival_threshold">survival threshold (%)</label>
+                <input type="number" min="0" max="100" value="2" oninput="minMaxInput(this, 0, 100)">
+            </div>
+
+        </form>
+    </main>
+
+</body>
+</html>
