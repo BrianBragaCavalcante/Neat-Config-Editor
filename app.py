@@ -66,7 +66,8 @@ def delete():
         if os.path.isdir(item_path):
             shutil.rmtree(item_path)
         elif os.path.isfile(item_path):
-            os.remove(item_path)
+            if item != '.nonemedia':
+                os.remove(item_path)
     try:
         if os.path.exists(os.path.join(MODELS_FOLDER, '__pycache__')):
             shutil.rmtree(os.path.join(MODELS_FOLDER, '__pycache__'))
