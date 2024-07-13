@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neat Config Editor</title>
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/form.css">
-    <link rel="stylesheet" href="styles/switch.css">
 
-    <script  src="scripts/input.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/switch.css') }}">
+    
+    <script src="{{ url_for('static', filename='js/input.js') }}"></script>
 
 </head>
 <body>
@@ -19,10 +20,12 @@
     </header>
     
     <main>
-        <input type="file" name="" id="">
-        <button type="button">Criar Novo</button>
+        <form action="/NEAT-Editor/upload/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="file">
+            <button type="submit">Send</button>
+        </form>
 
-        <form action="">
+        <form action="/NEAT-Editor/save/" method="post">
             <h2>
                 NEAT
             </h2>
@@ -30,22 +33,27 @@
             <div class="form-group">
                 <label for="fitness_criterion">fitness criterion</label>
                 <select name="fitness_criterion" id="fitness_criterion">
-                    <option value="max">Max</option>
-                    <option value="min">Min</option>
-                    <option value="mean">Mean</option>
+                    <option value="max"{% if parameters[0] == 'max' %} selected {% endif %}>Max</option>
+                    <option value="min"{% if parameters[0] == 'min' %} selected {% endif %}>Min</option>
+                    <option value="mean"{% if parameters[0] == 'mean' %} selected {% endif %}>Mean</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="fitness_threshold">fitness threshold</label>
-                <input type="number" min="1" value="1" oninput="minInput(this, 1)">
+                <input type="number" min="1" value="{{ parameters[1] }}" oninput="minInput(this, 1)" name="fitness_threshold" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pop_size">pop size</label>
+                <input type="number" name="pop_size" value="{{ parameters[2] }}" min="0" oninput="minInput(this, 0)" required>
             </div>
 
             <div class="form-group">
                 <label for="reset_on_extinction">reset on extinction</label>
                 <div class="switch">
-                    <input type="checkbox" id="reset_on_extinction_switch" checked>
-                    <label for="reset_on_extinction_switch"></label>
+                    <input type="checkbox" id="reset_on_extinction" {{ parameters[3] }} name="reset_on_extinction">
+                    <label for="reset_on_extinction"></label>
                 </div>
             </div>
             
@@ -61,54 +69,54 @@
                 <div class="form-group">
                     <label for="activation_default">activation default</label>
                     <select name="activation_default" id="activation_default">
-                        <option value="random">Random</option>
-                        <option value="abs">Abs</option>
-                        <option value="clamped">Clamped</option>
-                        <option value="cube">Cube</option>
-                        <option value="exp">Exp</option>
-                        <option value="gauss">Gauss</option>
-                        <option value="hat">Hat</option>
-                        <option value="identity">Identity</option>
-                        <option value="cube">Cube</option>
-                        <option value="inv">Inv</option>
-                        <option value="log">Log</option>
-                        <option value="relu">Relu</option>
-                        <option value="elu">Elu</option>
-                        <option value="lelu">Lelu</option>
-                        <option value="selu">Selu</option>
-                        <option value="sigmoid">Sigmoid</option>
-                        <option value="sin">Sin</option>
-                        <option value="softplus">Softplus</option>
-                        <option value="square">Square</option>
-                        <option value="tanh">Tanh</option>
+                        <option value="random" {% if parameters[4] == "random" %} selected {% endif %}>Random</option>
+                        <option value="abs" {% if parameters[4] == "abs" %} selected {% endif %}>Abs</option>
+                        <option value="clamped" {% if parameters[4] == "clamped" %} selected {% endif %}>Clamped</option>
+                        <option value="cube" {% if parameters[4] == "cube" %} selected {% endif %}>Cube</option>
+                        <option value="exp" {% if parameters[4] == "exp" %} selected {% endif %}>Exp</option>
+                        <option value="gauss" {% if parameters[4] == "gauss" %} selected {% endif %}>Gauss</option>
+                        <option value="hat" {% if parameters[4] == "hat" %} selected {% endif %}>Hat</option>
+                        <option value="identity" {% if parameters[4] == "identity" %} selected {% endif %}>Identity</option>
+                        <option value="cube" {% if parameters[4] == "cube" %} selected {% endif %}>Cube</option>
+                        <option value="inv" {% if parameters[4] == "inv" %} selected {% endif %}>Inv</option>
+                        <option value="log" {% if parameters[4] == "log" %} selected {% endif %}>Log</option>
+                        <option value="relu" {% if parameters[4] == "relu" %} selected {% endif %}>Relu</option>
+                        <option value="elu" {% if parameters[4] == "elu" %} selected {% endif %}>Elu</option>
+                        <option value="lelu" {% if parameters[4] == "lelu" %} selected {% endif %}>Lelu</option>
+                        <option value="selu" {% if parameters[4] == "selu" %} selected {% endif %}>Selu</option>
+                        <option value="sigmoid" {% if parameters[4] == "sigmoid" %} selected {% endif %}>Sigmoid</option>
+                        <option value="sin" {% if parameters[4] == "sin" %} selected {% endif %}>Sin</option>
+                        <option value="softplus" {% if parameters[4] == "softplus" %} selected {% endif %}>Softplus</option>
+                        <option value="square" {% if parameters[4] == "square" %} selected {% endif %}>Square</option>
+                        <option value="tanh" {% if parameters[4] == "tanh" %} selected {% endif %}>Tanh</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="activation_mutate_rate">activation mutate rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[5] }}" oninput="minMaxInput(this, 0, 100)" name="activation_mutate_rate" required>
                 </div>
                 <div class="form-group">
                     <label for="activation_options">activation options</label>
                     <select name="activation_options" id="activation_options">
-                        <option value="sigmoid">Sigmoid</option>
-                        <option value="abs">Abs</option>
-                        <option value="clamped">Clamped</option>
-                        <option value="cube">Cube</option>
-                        <option value="exp">Exp</option>
-                        <option value="gauss">Gauss</option>
-                        <option value="hat">Hat</option>
-                        <option value="identity">Identity</option>
-                        <option value="cube">Cube</option>
-                        <option value="inv">Inv</option>
-                        <option value="log">Log</option>
-                        <option value="relu">Relu</option>
-                        <option value="elu">Elu</option>
-                        <option value="lelu">Lelu</option>
-                        <option value="selu">Selu</option>
-                        <option value="sin">Sin</option>
-                        <option value="softplus">Softplus</option>
-                        <option value="square">Square</option>
-                        <option value="tanh">Tanh</option>
+                        <option value="sigmoid" {% if parameters[6] == "sigmoid" %} selected {% endif %}>Sigmoid</option>
+                        <option value="abs" {% if parameters[6] == "abs" %} selected {% endif %}>Abs</option>
+                        <option value="clamped" {% if parameters[6] == "clamped" %} selected {% endif %}>Clamped</option>
+                        <option value="cube" {% if parameters[6] == "cube" %} selected {% endif %}>Cube</option>
+                        <option value="exp" {% if parameters[6] == "exp" %} selected {% endif %}>Exp</option>
+                        <option value="gauss" {% if parameters[6] == "gauss" %} selected {% endif %}>Gauss</option>
+                        <option value="hat" {% if parameters[6] == "hat" %} selected {% endif %}>Hat</option>
+                        <option value="identity" {% if parameters[6] == "identity" %} selected {% endif %}>Identity</option>
+                        <option value="cube" {% if parameters[6] == "cube" %} selected {% endif %}>Cube</option>
+                        <option value="inv" {% if parameters[6] == "inv" %} selected {% endif %}>Inv</option>
+                        <option value="log" {% if parameters[6] == "log" %} selected {% endif %}>Log</option>
+                        <option value="relu" {% if parameters[6] == "relu" %} selected {% endif %}>Relu</option>
+                        <option value="elu" {% if parameters[6] == "elu" %} selected {% endif %}>Elu</option>
+                        <option value="lelu" {% if parameters[6] == "lelu" %} selected {% endif %}>Lelu</option>
+                        <option value="selu" {% if parameters[6] == "selu" %} selected {% endif %}>Selu</option>
+                        <option value="sin" {% if parameters[6] == "sin" %} selected {% endif %}>Sin</option>
+                        <option value="softplus" {% if parameters[6] == "softplus" %} selected {% endif %}>Softplus</option>
+                        <option value="square" {% if parameters[6] == "square" %} selected {% endif %}>Square</option>
+                        <option value="tanh" {% if parameters[6] == "tanh" %} selected {% endif %}>Tanh</option>
                     </select>
                 </div>
 
@@ -122,32 +130,32 @@
                 <div class="form-group">
                     <label for="aggregation_default" >aggregation default</label>
                     <select name="aggregation_default" id="aggregation_default">
-                        <option value="sum">Random</option>
-                        <option value="sum">Sum</option>
-                        <option value="product">Product</option>
-                        <option value="max">Max</option>
-                        <option value="min">Min</option>
-                        <option value="mean">Mean</option>
-                        <option value="median">Median</option>
-                        <option value="maxabs">MaxAbs</option>
+                        <option value="sum" {% if parameters[7] == "sum" %} selected {% endif %}>Random</option>
+                        <option value="sum" {% if parameters[7] == "sum" %} selected {% endif %}>Sum</option>
+                        <option value="product" {% if parameters[7] == "product" %} selected {% endif %}>Product</option>
+                        <option value="max" {% if parameters[7] == "max" %} selected {% endif %}>Max</option>
+                        <option value="min" {% if parameters[7] == "min" %} selected {% endif %}>Min</option>
+                        <option value="mean" {% if parameters[7] == "mean" %} selected {% endif %}>Mean</option>
+                        <option value="median" {% if parameters[7] == "median" %} selected {% endif %}>Median</option>
+                        <option value="maxabs" {% if parameters[7] == "maxabs" %} selected {% endif %}>MaxAbs</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="aggregation_mutate_rate">aggregation mutate rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[8] }}" oninput="minMaxInput(this, 0, 100)" name="aggregation_mutate_rate" required>
                 </div>
 
                 <div class="form-group">
                     <label for="aggregation_options">aggregation options</label>
                     <select name="aggregation_options" id="aggregation_options">
-                        <option value="sum">Sum</option>
-                        <option value="product">Product</option>
-                        <option value="max">Max</option>
-                        <option value="min">Min</option>
-                        <option value="mean">Mean</option>
-                        <option value="median">Median</option>
-                        <option value="maxabs">MaxAbs</option>
+                        <option value="sum" {% if parameters[9] ==  "sum" %} selected {% endif %}>Sum</option>
+                        <option value="product" {% if parameters[9] ==  "product" %} selected {% endif %}>Product</option>
+                        <option value="max" {% if parameters[9] ==  "max" %} selected {% endif %}>Max</option>
+                        <option value="min" {% if parameters[9] ==  "min" %} selected {% endif %}>Min</option>
+                        <option value="mean" {% if parameters[9] ==  "mean" %} selected {% endif %}>Mean</option>
+                        <option value="median" {% if parameters[9] ==  "median" %} selected {% endif %}>Median</option>
+                        <option value="maxabs" {% if parameters[9] ==  "maxabs" %} selected {% endif %}>MaxAbs</option>
                     </select>
                 </div>
 
@@ -160,35 +168,35 @@
 
                 <div class="form-group">
                     <label for="bias_init_mean">bias init mean</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[10] }}" step="0.01" name="bias_init_mean" required>
                 </div>
                 <div class="form-group">
                     <label for="bias_init_stdev">bias init stdev</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[11] }}" step="0.01" name="bias_init_stdev" required>
                 </div>
                 <div class="form-group">
                     <label for="bias_max_value">bias max value</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[12] }}" step="0.01" name="bias_max_value" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="bias_min_value">bias min value</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[13] }}" step="0.01" name="bias_min_value" required>
                 </div>
 
                 <div class="form-group">
                     <label for="bias_mutate_power">bias mutate power (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[14] }}" oninput="minMaxInput(this, 0, 100)" name="bias_mutate_power" required>
                 </div>
 
                 <div class="form-group">
                     <label for="bias_mutate_rate">bias mutate rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[15] }}" oninput="minMaxInput(this, 0, 100)" name="bias_mutate_rate" required>
                 </div>
 
                 <div class="form-group">
                     <label for="bias_replace_rate">bias replace rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[16] }}" oninput="minMaxInput(this, 0, 100)" name="bias_replace_rate" required>
                 </div>
                 
             </section>
@@ -200,12 +208,12 @@
 
                 <div class="form-group">
                     <label for="compatibility_disjoint_coefficient">compatibility disjoint coefficient</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[17] }}" step="0.01" name="compatibility_disjoint_coefficient" required>
                 </div>
 
                 <div class="form-group">
                     <label for="compatibility_weight_coefficient">compatibility  weight coefficient</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[18] }}" step="0.01" name="compatibility_weight_coefficient" required>
                 </div>
             </section>
 
@@ -216,12 +224,12 @@
 
                 <div class="form-group">
                     <label for="conn_add_prob">conn add prob (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[19] }}" oninput="minMaxInput(this, 0, 100)" name="conn_add_prob" required>
                 </div>
 
                 <div class="form-group">
                     <label for="conn_delete_prob">conn delete prob (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[20] }}" oninput="minMaxInput(this, 0, 100)" name="conn_delete_prob" required>
                 </div>
             </section>
 
@@ -233,33 +241,32 @@
                 <div class="form-group">
                     <label for="enabled_default">enabled default</label>
                     <div class="switch">
-                        <input type="checkbox" id="enabled_default_switch" checked>
-                        <label for="enabled_default_switch"></label>
+                        <input type="checkbox" id="enabled_default" {{ parameters[21] }} name="enabled_default">
+                        <label for="enabled_default"></label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="enabled_mutate_rate">enabled mutate rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[22] }}" oninput="minMaxInput(this, 0, 100)" name="enabled_mutate_rate" required>
                 </div>
 
                 <div class="form-group">
                     <label for="feed_forward">feed forward</label>
                     <div class="switch">
-                        <input type="checkbox" id="feed_forward_switch" checked>
-                        <label for="feed_forward_switch"></label>
+                        <input type="checkbox" id="feed_forward" {{ parameters[23] }} name="feed_forward">
+                        <label for="feed_forward"></label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="initial_connection">initial connection</label>
                     <select name="initial_connection" id="initial_connection">
-                        <option value="unconnected">Unconnected</option>
-                        <option value="fs_neat_nohidden">Fs neat nohidden</option>
-                        <option value="full">Full</option>
-                        <option value="full_nodirect">Full nodirect</option>
-                        <option value="full_direct">Full direct</option>
-                        <!--Adicionar o resto depois-->
+                        <option value="unconnected" {% if parameters[24] == "unconnected" %} selected {% endif %}>Unconnected</option>
+                        <option value="fs_neat_nohidden" {% if parameters[24] == "fs_neat_nohidden" %} selected {% endif %}>Fs neat nohidden</option>
+                        <option value="full" {% if parameters[24] == "full" %} selected {% endif %}>Full</option>
+                        <option value="full_nodirect" {% if parameters[24] == "full_nodirect" %} selected {% endif %}>Full nodirect</option>
+                        <option value="full_direct" {% if parameters[24] == "full_direct" %} selected {% endif %}>Full direct</option>
                     </select>
                 </div>
 
@@ -272,34 +279,34 @@
 
                 <div class="form-group">
                     <label for="node_add_prob">node add prob (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[25] }}" oninput="minMaxInput(this, 0, 100)" name="node_add_prob" required>
                 </div>
 
                 <div class="form-group">
                     <label for="node_delete_prob">node delete prob (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[26] }}" oninput="minMaxInput(this, 0, 100)" name="node_delete_prob" required>
                 </div>
 
             </section>
 
-            <section id="network_parameters">
+            <section id="network_default">
                 <h3>
                     Network Parameters
                 </h3>
 
                 <div class="form-group">
                     <label for="num_hidden">num hidden</label>
-                    <input type="number" min="0" value="0" oninput="minInput(this, 0)">
+                    <input type="number" min="0" value="{{ parameters[27] }}" oninput="minInput(this, 0)" name="num_hidden" required>
                 </div>
 
                 <div class="form-group">
                     <label for="num_inputs">num inputs</label>
-                    <input type="number" min="1" value="1" oninput="minInput(this, 1)">
+                    <input type="number" min="1" value="{{ parameters[28] }}" oninput="minInput(this, 1)" name="num_inputs" required>
                 </div>
 
                 <div class="form-group">
                     <label for="num_outputs">num outputs</label>
-                    <input type="number" min="1" value="1" oninput="minInput(this, 1)">
+                    <input type="number" min="1" value="{{ parameters[29] }}" oninput="minInput(this, 1)" name="num_outputs" required>
                 </div>
 
             </section>
@@ -311,35 +318,35 @@
 
                 <div class="form-group">
                     <label for="response_init_mean">response init mean</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[30] }}" step="0.01" name="response_init_mean" required>
                 </div>
                 <div class="form-group">
                     <label for="response_init_stdev">response init stdev</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[31] }}" step="0.01" name="response_init_stdev" required>
                 </div>
                 <div class="form-group">
                     <label for="response_max_value">response max value</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[32] }}" step="0.01" name="response_max_value" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="response_min_value">response min value</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[33] }}" step="0.01" name="response_min_value" required>
                 </div>
 
                 <div class="form-group">
                     <label for="response_mutate_power">response mutate power (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[34] }}" oninput="minMaxInput(this, 0, 100)" name="response_mutate_power" required>
                 </div>
 
                 <div class="form-group">
                     <label for="response_mutate_rate">response mutate rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[35] }}" oninput="minMaxInput(this, 0, 100)" name="response_mutate_rate" required>
                 </div>
 
                 <div class="form-group">
                     <label for="response_replace_rate">response replace rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[36] }}" oninput="minMaxInput(this, 0, 100)" name="response_replace_rate" required>
                 </div>
                 
             </section>
@@ -351,35 +358,35 @@
 
                 <div class="form-group">
                     <label for="weight_init_mean">weight init mean</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[37] }}" step="0.01" name="weight_init_mean" required>
                 </div>
                 <div class="form-group">
                     <label for="weight_init_stdev">weight init stdev</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[38] }}" step="0.01" name="weight_init_stdev" required>
                 </div>
                 <div class="form-group">
                     <label for="weight_max_value">weight max value</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[39] }}" step="0.01" name="weight_max_value" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="weight_min_value">weight min value</label>
-                    <input type="number" value="0.0" step="0.01">
+                    <input type="number" value="{{ parameters[40] }}" step="0.01" name="weight_min_value" required>
                 </div>
 
                 <div class="form-group">
                     <label for="weight_mutate_power">weight mutate power (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[41] }}" oninput="minMaxInput(this, 0, 100)" name="weight_mutate_power" required>
                 </div>
 
                 <div class="form-group">
                     <label for="weight_mutate_rate">weight mutate rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[42] }}" oninput="minMaxInput(this, 0, 100)" name="weight_mutate_rate" required>
                 </div>
 
                 <div class="form-group">
                     <label for="weight_replace_rate">weight replace rate (%)</label>
-                    <input type="number" min="0" max="100" value="0" oninput="minMaxInput(this, 0, 100)">
+                    <input type="number" min="0" max="100" value="{{ parameters[43] }}" oninput="minMaxInput(this, 0, 100)" name="weight_replace_rate" required>
                 </div>
                 
             </section>
@@ -390,7 +397,7 @@
 
             <div class="form-group">
                 <label for="compatibility_threshold">compatibility threshold</label>
-                <input type="number" value="0.0" step="0.01">
+                <input type="number" value="{{ parameters[44] }}" step="0.01" name="compatibility_threshold" required>
             </div>
 
             <h2>
@@ -400,21 +407,21 @@
             <div class="form-group">
                 <label for="species_fitness_func">species fitness func</label>
                 <select name="species_fitness_func" id="species_fitness_func">
-                    <option value="mean">Mean</option>
-                    <option value="max">Max</option>
-                    <option value="min">Min</option>
-                    <option value="median">Median</option>
+                    <option value="mean" {% if parameters[45] == "mean" %} selected {% endif %}>Mean</option>
+                    <option value="max" {% if parameters[45] == "max" %} selected {% endif %}>Max</option>
+                    <option value="min" {% if parameters[45] == "min" %} selected {% endif %}>Min</option>
+                    <option value="median" {% if parameters[45] == "median" %} selected {% endif %}>Median</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="max_stagnation">max stagnation</label>
-                <input type="number" value="15" min="1" oninput="minInput(this, 1)">
+                <input type="number" value="{{ parameters[46] }}" min="1" oninput="minInput(this, 1)" name="max_stagnation" required>
             </div>
 
             <div class="form-group">
                 <label for="species_elitism">species elitism</label>
-                <input type="number" value="0" min="0" oninput="minInput(this, 0)">
+                <input type="number" value="{{ parameters[47] }}" min="0" oninput="minInput(this, 0)" name="species_elitism" required>
             </div>
             
             <h2>
@@ -422,16 +429,21 @@
             </h2>
 
             <div class="form-group">
-                <label for="nelitism">elitism</label>
-                <input type="number" min="0" value="0" oninput="minInput(this, 0)">
+                <label for="elitism">elitism</label>
+                <input type="number" min="0" value="{{ parameters[48] }}" oninput="minInput(this, 0)" name="elitism" required>
             </div>
             
             <div class="form-group">
                 <label for="survival_threshold">survival threshold (%)</label>
-                <input type="number" min="0" max="100" value="2" oninput="minMaxInput(this, 0, 100)">
+                <input type="number" min="0" max="100" value="{{ parameters[49] }}" oninput="minMaxInput(this, 0, 100)" name="survival_threshold" required>
             </div>
-
+            <button type="submit">Save</button>
         </form>
+
+        <form action="/NEAT-Editor/delete/" method="get">
+            <button type="submit" id="clear_cache">Clear Cache</button>
+        </form>
+
     </main>
 
 </body>

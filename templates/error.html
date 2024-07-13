@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="shortcut icon" href="imgs/favicon.ico" type="image/x-icon">
+    <title>Neat Config Editor</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: red;
+            margin-bottom: 50px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            color: white;
+        }
+
+        main {
+            width: 800px;
+            margin: auto;
+
+        }
+
+        a {
+            font-weight: bold;
+        }
+
+        p {
+            font-size: large;
+            line-height: 1.5em;
+        }
+
+        @media screen and (max-width: 800px){
+            main {
+                width: calc(100% - 40px);
+                padding: 20px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>ERROR</h1>
+    <main>
+        {% if error == 1 %}
+        <p>
+            Selected file was not interpreted successfully, it is likely that the file is not a text file (.txt), or its contents are not suitable to be a NEAT-Python configuration file. If you want to return to the home screen, click <a href="http://127.0.0.1:5000/NEAT-Editor/">here</a>, or, if you want to download an example file, click <a href="{{ url_for('download') }}">here</a>.
+        </p>
+        {% endif %}
+    </main>
+</body>
+</html>
