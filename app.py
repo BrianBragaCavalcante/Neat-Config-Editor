@@ -46,7 +46,7 @@ def indexUpload(id):
 
         return render_template('index.html', parameters=file.listLines)
     except Exception:
-        return
+        return redirect(url_for('error', errorID=1))
 
 
 @app.route('/NEAT-Config-Editor/save/', methods=['POST'])
@@ -92,4 +92,4 @@ def download():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
