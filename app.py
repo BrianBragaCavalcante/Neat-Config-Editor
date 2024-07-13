@@ -48,6 +48,7 @@ def indexUpload(id):
     except Exception:
         return
 
+
 @app.route('/NEAT-Config-Editor/save/', methods=['POST'])
 def save():
     arq = models.File(parameters=request.form.to_dict())
@@ -91,4 +92,4 @@ def download():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
