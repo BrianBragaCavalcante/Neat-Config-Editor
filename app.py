@@ -11,7 +11,7 @@ MODELS_FOLDER = os.path.join(os.getcwd(), 'models')
 app = Flask(__name__, template_folder='./templates/', static_folder='./static/')
 
 
-@app.route('/NEAT-Editor/')
+@app.route('/NEAT-Config-Editor/')
 def index():
     fileDefault = models.File(path=os.path.join(MODELS_FOLDER, 'configDefault.txt'))
     for p, i in enumerate(fileDefault.listLines):
@@ -23,7 +23,7 @@ def index():
     return render_template('index.html', parameters=fileDefault.listLines)
 
 
-@app.route('/NEAT-Editor/upload/', methods=['POST'])
+@app.route('/NEAT-Config-Editor/upload/', methods=['POST'])
 def upload():
     countFiles = models.count_files(UPLOAD_FOLDER)
     savePath = os.path.join(UPLOAD_FOLDER, secure_filename(f'config{countFiles}.txt'))
@@ -32,7 +32,7 @@ def upload():
     return redirect(url_for('indexUpload', id=countFiles))
 
 
-@app.route('/NEAT-Editor/<int:id>')
+@app.route('/NEAT-Config-Editor/<int:id>')
 def indexUpload(id):
     try:
         file = models.File(path=os.path.join(UPLOAD_FOLDER, f'config{id}.txt'))
@@ -48,7 +48,7 @@ def indexUpload(id):
     except Exception:
         return
 
-@app.route('/NEAT-Editor/save/', methods=['POST'])
+@app.route('/NEAT-Config-Editor/save/', methods=['POST'])
 def save():
     arq = models.File(parameters=request.form.to_dict())
     arq.save('./save/config.txt')
@@ -58,7 +58,7 @@ def save():
     return response
 
 
-@app.route('/NEAT-Editor/delete/', methods=['GET'])
+@app.route('/NEAT-Config-Editor/delete/', methods=['GET'])
 def delete():
     for item in os.listdir(UPLOAD_FOLDER):
         item_path = os.path.join(UPLOAD_FOLDER, item)
@@ -74,7 +74,7 @@ def delete():
     return redirect(url_for('index'))
 
 
-@app.route('/NEAT-Editor/error/<int:errorID>')
+@app.route('/NEAT-Config-Editor/error/<int:errorID>')
 def error(errorID):
     if errorID in [1]:
         return render_template('error.html', error=errorID)
@@ -82,15 +82,13 @@ def error(errorID):
         return redirect(url_for('index'))
 
 
-@app.route('/NEAT-Editor/download/')
+@app.route('/NEAT-Config-Editor/download/')
 def download():
     file = './models/configDefault.txt'
     response = make_response(send_file(file, mimetype='text/plain'))
     response.headers['Content-Disposition'] = 'attachment; filename=config.txt'
     return response
 
-def run():
-    app.run(debug=True)
 
-
-run()
+if __name__ == '__main__':
+    app.run()
