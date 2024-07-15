@@ -3,7 +3,7 @@
 ---
 
 [![GitHub License](https://img.shields.io/github/license/BrianBragaCavalcante/Neat-Config-Editor?color=orange)](https://github.com/BrianBragaCavalcante/Neat-Config-Editor/blob/master/LICENCE)
-![Size](https://img.shields.io/badge/size-25.9MB-blue)
+![Size](https://img.shields.io/badge/size-14.4MB-blue)
 [![GitHub](https://img.shields.io/badge/GitHub-black?logo=github)](https://github.com/BrianBragaCavalcante/Neat-Config-Editor)
 
 **Neat Config Editor** is a tool designed for editing configuration files of the [**NEAT-Python**](https://github.com/CodeReclaimers/neat-python/) library, simplifying the process of managing and modifying configurations for NEAT-based projects.
@@ -43,6 +43,7 @@ Neat-Config-Editor/
 ├── templates/
 ├── upload/
 ├── venv/
+├── .gitignore
 ├── app.py
 ├── LICENCE
 ├── neatconfigeditor.exe <<= here
