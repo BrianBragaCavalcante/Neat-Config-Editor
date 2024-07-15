@@ -14,6 +14,13 @@
 - Validation of configuration parameters
 - Easy integration with existing NEAT-Python projects
 
+## 🌐 Neat Config Editor for Web
+
+Test the version of Neat Config Editor for the Web by clicking [**HERE**](https://neat-config-editor.onrender.com), however, it is in the beta phase and some **errors** may occur. And it's **not for mobile**, the site isn't responsive for that.
+
+### Full link:
+- [**https://neat-config-editor.onrender.com**](https://neat-config-editor.onrender.com)
+
 ## 📷 Images
 
 ![Image](https://github.com/user-attachments/assets/4dd78f51-9ae5-495d-844c-e1b0e5ebba4c)
