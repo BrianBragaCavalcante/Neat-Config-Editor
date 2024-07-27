@@ -2,11 +2,9 @@ import os
 import asyncio
 import subprocess
 
-PYTHON_INTERPRETER = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
-
 
 async def start_flask_server():
-    subprocess.Popen([PYTHON_INTERPRETER, 'app.py'])
+    subprocess.Popen('app.exe')
 
 
 async def open_browser():
