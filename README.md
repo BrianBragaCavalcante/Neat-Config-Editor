@@ -57,6 +57,8 @@ It will open the console and your default browser, if you don't open the browser
 
 **[http://localhost:5000/NEAT-Config-Editor/](http://localhost:5000/NEAT-Config-Editor/)**
 
+If you want to end the program, you will have to end its process in the task manager.
+
 ## 👨‍💻 Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request.
