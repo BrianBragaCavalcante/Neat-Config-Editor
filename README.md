@@ -43,13 +43,14 @@ Neat-Config-Editor/
 ├── static/
 ├── templates/
 ├── upload/
-├── venv/
 ├── .gitignore
+├── app.exe
 ├── app.py
 ├── LICENCE
 ├── neatconfigeditor.exe <<= here
 ├── neatconfigeditor.py
-└── README.md
+├── README.md
+└── requirements.txt
 ```
 
 It will open the console and your default browser, if you don't open the browser just browse here:
