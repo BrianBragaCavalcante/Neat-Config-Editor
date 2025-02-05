@@ -16,7 +16,7 @@
 
 ## 🌐 Neat Config Editor for Web
 
-Test the version of Neat Config Editor for the Web by clicking  [**HERE**](https://neat-config-editor-web-production.up.railway.app) or [**HERE**](https://neat-config-editor.onrender.com), however, it is in the beta phase and some **errors** may occur. And it's **not for mobile**, the site isn't responsive for that.
+Test the version of Neat Config Editor for the Web by clicking  [**HERE**](https://neat-config-editor.onrender.com), however, it is in the beta phase and some **errors** may occur. And it's **not for mobile**, the site isn't responsive for that.
 
 ### Full link:
 - [**https://neat-config-editor-web-production.up.railway.app**](https://neat-config-editor-web-production.up.railway.app)
